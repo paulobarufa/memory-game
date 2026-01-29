@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import './styles/App.css'
 import { Pokedex } from 'pokeapi-js-wrapper';
 
 function App() {
 
   const [pokemons, setPokemons] = useState([]);
-  const P = new Pokedex()
+  const P = new Pokedex({ cacheImages: true })
 
   useEffect(() => {
 
