@@ -3,6 +3,7 @@ import './styles/App.css'
 import Score from './Score.jsx'
 import pokeBall from './assets/pokeball.png'
 import pokeText from './assets/logo.png'
+import Card from './Card.jsx'
 import { Pokedex } from 'pokeapi-js-wrapper';
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
         data.forEach((pokemon) => {
           pokemons.push({
             name: pokemon.name,
-            url: pokemon.sprites.other["official-artwork"].front_shiny
+            url: pokemon.sprites.other["official-artwork"].front_shiny,
+            id: pokemon.id
           })
         })
         setPokemons(pokemons);
@@ -45,6 +47,10 @@ function App() {
     })()
 
   })
+
+  const cardList = pokemons.map(pokemon => 
+    <Card name={pokemon.name} url={pokemon.url} key={pokemon.id} />
+  );
 
   return (
     <>
@@ -59,7 +65,7 @@ function App() {
         </div>
       </div>
       <div className='main-container'>
-
+        {cardList}
       </div>
     </>
   )

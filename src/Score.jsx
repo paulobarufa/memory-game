@@ -1,5 +1,3 @@
-import './styles/Score.css'
-
 function Score({name, score}) {
 
     return (
