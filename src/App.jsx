@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react'
 import './styles/App.css'
+import Score from './Score.jsx'
+import pokeBall from './assets/pokeball.png'
+import pokeText from './assets/logo.png'
 import { Pokedex } from 'pokeapi-js-wrapper';
 
 function App() {
 
   const [pokemons, setPokemons] = useState([]);
+  const [topScore, setTopScore] = useState(0);
+  const [currentScore, setCurrentScore] = useState(0);
+
   const P = new Pokedex({ cacheImages: true })
 
   useEffect(() => {
@@ -42,6 +48,19 @@ function App() {
 
   return (
     <>
+      <div className='top-wrapper'>
+        <div className='logo'>
+          <img src={pokeBall} id='pokeball' />
+          <img src={pokeText} id='poketext' />
+        </div>
+        <div className='score-wrapper'>
+          <Score name="Current Score" score={currentScore}/>
+          <Score name="Top Score" score={topScore}/>
+        </div>
+      </div>
+      <div className='main-container'>
+
+      </div>
     </>
   )
 }
