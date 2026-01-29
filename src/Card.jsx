@@ -1,9 +1,9 @@
 import './styles/Card.css'
 
-function Card({name, url}) {
+function Card({name, url, handleClick}) {
 
     return (
-        <div className='card'>
+        <div className='card' onClick={handleClick}>
             <div className='img-wrapper'>
                 <img className='card-img' src={url}/>
             </div>

@@ -11,13 +11,13 @@ function App() {
   const [pokemons, setPokemons] = useState([]);
   const [topScore, setTopScore] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
-
-  const P = new Pokedex({ cacheImages: true })
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
     (async () => {
       try {
+        const P = new Pokedex({ cacheImages: true })
         const data = await P.resource([
           "/api/v2/pokemon/1",
           "/api/v2/pokemon/6",
@@ -32,6 +32,7 @@ function App() {
           "/api/v2/pokemon/39",
           "/api/v2/pokemon/28",
         ])
+
         const pokemons = [];
         data.forEach((pokemon) => {
           pokemons.push({
@@ -40,16 +41,36 @@ function App() {
             id: pokemon.id
           })
         })
-        setPokemons(pokemons);
+        if (loading) {
+          setPokemons(pokemons);
+          setLoading(false);
+        }
+        
       } catch(err) {
         console.error(err);
       }
     })()
 
-  })
+  }, [loading])
+
+  const shufflePokemons = () => {
+    let array = [...pokemons]
+    let currentIndex = array.length;
+
+    while (currentIndex != 0) {
+
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    setPokemons(array);
+  }
 
   const cardList = pokemons.map(pokemon => 
-    <Card name={pokemon.name} url={pokemon.url} key={pokemon.id} />
+    <Card name={pokemon.name} url={pokemon.url} key={pokemon.id} handleClick={shufflePokemons} />
   );
 
   return (
