@@ -12,6 +12,7 @@ function App() {
   const [topScore, setTopScore] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [guessArray, setGuessArray] = useState([]);
 
   useEffect(() => {
 
@@ -69,8 +70,18 @@ function App() {
     setPokemons(array);
   }
 
+  const cardProps = {
+    topScore: topScore,
+    setTopScore: setTopScore,
+    currentScore: currentScore,
+    setCurrentScore: setCurrentScore,
+    guessArray: guessArray,
+    setGuessArray: setGuessArray,
+    shufflePokemons: shufflePokemons
+  }
+
   const cardList = pokemons.map(pokemon => 
-    <Card name={pokemon.name} url={pokemon.url} key={pokemon.id} handleClick={shufflePokemons} />
+    <Card name={pokemon.name} url={pokemon.url} key={pokemon.id} id={pokemon.id} cardProps={cardProps} />
   );
 
   return (
